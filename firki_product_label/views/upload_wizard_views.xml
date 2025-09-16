@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_upload_sku_wizard" model="ir.ui.view">
+    <field name="name">upload.sku.wizard.form</field>
+    <field name="model">upload.sku.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Upload SKU File">
+        <group>
+          <field name="file"/>
+          <field name="filename"/>
+        </group>
+        <footer>
+          <button string="Process" type="object" name="action_process_file" class="btn-primary"/>
+          <button string="Cancel" class="btn-secondary" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_upload_sku" model="ir.actions.act_window">
+    <field name="name">Upload SKU</field>
+    <field name="res_model">upload.sku.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+  </record>
+
+  
+
+
+
+  <menuitem id="menu_product_label_root"
+          name="Product Labels Generator"
+          sequence="10">
+    <menuitem id="menu_product_label"
+              name="Product Labels"
+              sequence="10" action="action_product_label"/>
+        <menuitem id="menu_product_label_records"
+                  name="Upload SKU File(CSV)"
+                  action="action_upload_sku"
+                  sequence="10"/>
+  </menuitem>
+
+</odoo>
+
+

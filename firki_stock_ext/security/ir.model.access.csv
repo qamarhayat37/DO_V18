@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_picking_product_scan,access_stock_picking_product_scan,model_stock_picking_product_scan,,1,1,1,1
+access_stock_picking_product_scan_line,access_stock_picking_product_scan_line,model_stock_picking_product_scan_line,,1,1,1,1

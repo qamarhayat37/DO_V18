@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wizard for scanning product -->
+    <record id="view_stock_picking_product_scan" model="ir.ui.view">
+        <field name="name">Product Barcode Scan</field>
+        <field name="model">stock.picking.product.scan</field>
+        <field name="arch" type="xml">
+            <form string="Product Barcode Scan">
+                <field name="_barcode_scanned" widget="barcode_handler"/>
+                <field name="product_barcode_line_ids" mode="list">
+                    <list string="Line" create="false" editable="bottom">
+                        <field name="product_id" options="{'no_create': True, 'no_open': True}" readonly="1" force_save="1"/>
+                        <field name="product_qty" sum="Total Product Quantity"/>
+                        <field name="count" readonly="1" force_save="1" sum="Total Count"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="import_scanned_products" string="Import Products"
+                            type="object" class="btn-primary"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

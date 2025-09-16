@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+      <record id="paperformat_product_label" model="report.paperformat">
+        <field name="name">Product Label</field>
+        <field name="format">custom</field>
+        <field name="page_height">40</field>
+        <field name="page_width">50</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">1</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="disable_shrinking" eval="True"/>
+        <field name="dpi">96</field>
+        <field name="default" eval="False"/>
+    </record>
+
+  <record id="product_label_report" model="ir.actions.report">
+      <field name="name">Product Label</field>
+      <field name="model">product.label</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="paperformat_id" ref="paperformat_product_label"/>
+      <field name="report_name">firki_product_label.product_label_template</field>
+      <field name="report_file">firki_product_label.product_label_template</field>
+      <field name="print_report_name">'Product Label - %s' % (object.product_id.name)</field>
+      <field name="binding_model_id" ref="model_product_label"/>
+      <field name="binding_type">report</field>
+  </record>
+
+  <template id="product_label_template">
+    <t t-call="web.basic_layout">
+      <t t-foreach="docs" t-as="doc">
+          <t t-if="doc.quantity" t-set="quantity" t-value="doc.quantity"/>
+          <t t-if="doc.product_id.product_template_attribute_value_ids" t-set="attributes" t-value="doc.product_id.product_template_attribute_value_ids"/>
+
+                  <t t-foreach="list(range(quantity))" t-as="index_qty">
+                        <div class="page" style="font-family: Arial, sans-serif; padding:0px; page-break-after: always;">
+                          <div style="page-break-after: always;">
+                            <table style="width:100%; border:2;">
+                                <tr>
+                                    <td colspan="2" style="font-size:6px;text-align: left;">
+                                    IMPORTED &amp; MARKETED BY:GADGET LEAGUE INDIA PVT. LTD.
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td colspan="2" style="font-size:6px;text-align: left;">
+                                    OKHLA INDUSTRIAL AREA PHASE 2, NEW DELHI 110020
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size:8px;padding-top:0px;text-align: left;">
+                                        COMMON NAME:<t t-esc="doc.product_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Quantity Column -->
+                                    <td style="text-align:center; vertical-align:top; width:30%; padding:2px;">
+                                        <div style="font-size:10px; line-height:1.2;">
+                                            QUANTITY:<br/>
+                                            <b>1 N</b>
+                                        </div>
+                                    </td>
+                                    <!-- Barcode Column -->
+                                    <td style="text-align:center; vertical-align:middle; width:70%; padding:2px;">
+                                        <div t-field="doc.product_id.barcode"
+                                             t-options="{'widget': 'barcode', 'symbology': 'EAN13', 'width': 200, 'height': 40, 'quiet': 0, 'img_style': 'height:25px;'}">
+                                        </div>
+                                        <div style="font-size:8px; margin-top:1px;">
+                                            <t t-esc="doc.product_id.barcode or ''"/>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <t t-foreach="attributes" t-as="attribute">
+                                    <tr>
+                                        <td colspan="2" style="font-size:8px;text-align: left;">
+                                           <t t-esc="attribute.display_name"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td colspan="2" style="text-align: left;font-size:6px;">
+                                        <strong>MAXIMUM RETAIL PRICE:</strong>
+                                        <span style="margin-left: 3px;font-size:6px;">
+                                        <t t-esc="doc.product_id.lst_price or ''"/></span>
+                                        (INCLUSIVE OF ALL TAXES)
+                                    </td>
+                                </tr>
+                               <tr>
+                                    <td colspan="2" style="font-size:6px;text-align: left;">
+                                    CUSTOMER CARE &amp; COMPLAINTS:CONTACT OUR CUSTOMER
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td colspan="2" style="font-size:6px;text-align: left;">
+                                    CARE EXECUTIVE AT THE IMPORTER’S ADDRESS|011-46043888-89 OR
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size:6px;text-align: left;">
+                                    SUPPORT@GADGETLEAGUE.COM|WWW.GADGETLEAGUE.COM
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                      </div>
+                  </t>
+                </t>
+      </t>
+  </template>
+</odoo>

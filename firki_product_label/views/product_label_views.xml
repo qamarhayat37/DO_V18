@@ -1,0 +1,36 @@
+<odoo>
+  <record id="view_product_label_list" model="ir.ui.view">
+    <field name="name">product.label.list</field>
+    <field name="model">product.label</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="product_id"/>
+        <field name="quantity"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="view_product_label_form" model="ir.ui.view">
+    <field name="name">product.label.form</field>
+    <field name="model">product.label</field>
+    <field name="arch" type="xml">
+      
+      <form>
+        <sheet>
+          <button string="Print Labels" type="object" name="action_print_labels" class="btn-primary"/>
+        <group>
+          <field name="product_id"/>
+          <field name="quantity"/>
+        </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_product_label" model="ir.actions.act_window">
+    <field name="name">Product Labels</field>
+    <field name="res_model">product.label</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+</odoo>
